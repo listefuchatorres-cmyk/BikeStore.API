@@ -1,0 +1,211 @@
+﻿@model List<BikeStore.API.Models.BicicletaViewModel>
+
+@{
+    ViewData["Title"] = "Bicicletas";
+}
+
+<div style="max-width: 1100px; margin: 40px auto; font-family: Arial;">
+
+    <h1>🚲 Bicicletas</h1>
+
+    @if (TempData["Error"] != null)
+    {
+        <div style="background:#f8d7da;
+            color:#842029;
+            padding:12px;
+            margin-bottom:15px;
+            border-radius:5px;">
+            @TempData["Error"]
+        </div>
+    }
+
+    <a href="/BicicletasWeb/Crear"
+       style="display:inline-block;
+        background:#198754;
+        color:white;
+        padding:10px 18px;
+        text-decoration:none;
+        border-radius:5px;
+        margin:15px 0;">
+        ➕ Nueva bicicleta
+    </a>
+
+
+    <p>Listado de bicicletas disponibles en BikeStore.</p>
+
+    <form method="get" action="/BicicletasWeb/Index"
+          style="margin:20px 0; padding:20px; background:#f5f5f5; border-radius:8px;">
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:end;">
+
+            <div>
+                <label>Marca</label><br />
+                <input type="text"
+                       name="marca"
+                       value="@Context.Request.Query["marca"]"
+                       placeholder="Ej. Trek"
+                       style="padding:8px; border:1px solid #ccc; border-radius:5px;" />
+            </div>
+
+            <div>
+                <label>Modelo</label><br />
+                <input type="text"
+                       name="modelo"
+                       value="@Context.Request.Query["modelo"]"
+                       placeholder="Ej. Marlin"
+                       style="padding:8px; border:1px solid #ccc; border-radius:5px;" />
+            </div>
+
+            <div>
+                <label>Categoría</label><br />
+                <input type="number"
+                       name="categoria"
+                       value="@Context.Request.Query["categoria"]"
+                       placeholder="ID categoría"
+                       style="padding:8px; border:1px solid #ccc; border-radius:5px;" />
+            </div>
+
+            <button type="submit"
+                    style="background:#198754;
+                color:white;
+                border:none;
+                padding:9px 18px;
+                border-radius:5px;
+                cursor:pointer;">
+                🔎 Buscar
+            </button>
+
+            <a href="/BicicletasWeb/Index"
+               style="background:#6c757d;
+                color:white;
+                padding:9px 18px;
+                text-decoration:none;
+                border-radius:5px;">
+                🔄 Limpiar
+            </a>
+
+            <a href="/BicicletasWeb/Index?stock=bajo"
+               style="background:#ffc107;
+                color:black;
+                padding:9px 18px;
+                text-decoration:none;
+                border-radius:5px;">
+                ⚠️ Stock bajo
+            </a>
+
+            <a href="/BicicletasWeb/Index?stock=agotado"
+               style="background:#dc3545;
+                color:white;
+                padding:9px 18px;
+                text-decoration:none;
+                border-radius:5px;">
+                ❌ Agotadas
+            </a>
+
+            <a href="/BicicletasWeb/Index"
+               style="background:#198754;
+                color:white;
+                padding:9px 18px;
+                text-decoration:none;
+                border-radius:5px;">
+                📋 Todas
+            </a>
+        </div>
+
+    </form>
+
+    <table style="width:100%; border-collapse:collapse; margin-top:30px;">
+
+        <thead>
+            <tr style="background-color:#198754; color:white;">
+
+                <th style="padding:12px;">ID</th>
+                <th style="padding:12px;">Categoría</th>
+                <th style="padding:12px;">Marca</th>
+                <th style="padding:12px;">Modelo</th>
+                <th style="padding:12px;">Precio</th>
+                <th style="padding:12px;">Stock</th>
+                <th style="padding:12px;">Estado</th>
+                <th style="padding:12px;">Acciones</th>
+
+            </tr>
+        </thead>
+
+        <tbody>
+
+            @foreach (var bicicleta in Model)
+            {
+                <tr>
+
+                    <td style="padding:10px; text-align:center;">
+                        @bicicleta.IdBicicleta
+                    </td>
+
+                    <td style="padding:10px; text-align:center;">
+                        @bicicleta.IdCategoria
+                    </td>
+
+                    <td style="padding:10px;">
+                        @bicicleta.Marca
+                    </td>
+
+                    <td style="padding:10px;">
+                        @bicicleta.Modelo
+                    </td>
+
+                    <td style="padding:10px;">
+                        $@bicicleta.Precio.ToString("0.00")
+                    </td>
+
+                    <td style="padding:10px; text-align:center;">
+                        @bicicleta.Stock
+                    </td>
+
+                    <td style="padding:10px; text-align:center;">
+                        @bicicleta.Estado
+                    </td>
+
+                    <td style="padding:10px; text-align:center;">
+
+                        <a href="/BicicletasWeb/Editar/@bicicleta.IdBicicleta"
+                           style="background:#ffc107;
+                            color:black;
+                            padding:6px 12px;
+                            text-decoration:none;
+                            border-radius:5px;">
+                            ✏️ Editar
+                        </a>
+
+                        <form method="post"
+                              action="/BicicletasWeb/Eliminar/@bicicleta.IdBicicleta"
+                              style="display:inline;"
+                              onsubmit="return confirm('¿Está seguro de eliminar esta bicicleta?');">
+
+                            <button type="submit"
+                                    style="background:#dc3545;
+                                color:white;
+                                border:none;
+                                padding:6px 12px;
+                                border-radius:5px;
+                                margin-left:5px;
+                                cursor:pointer;">
+                                🗑️ Eliminar
+                            </button>
+
+                        </form>
+
+                    </td>
+
+          
+                </tr>
+            }
+
+        </tbody>
+
+    </table>
+
+    <br />
+
+    <a href="/Home/Index">⬅ Volver al inicio</a>
+
+</div>

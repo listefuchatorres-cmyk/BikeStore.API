@@ -1,0 +1,92 @@
+﻿@model BikeStore.API.Models.Categoria
+
+@{
+    ViewData["Title"] = "Editar Categoría";
+}
+
+<div style="max-width:700px; margin:40px auto; font-family:Arial;">
+
+    <h1>✏️ Editar Categoría</h1>
+
+    <form method="post"
+          action="/CategoriasWeb/Editar/@Model.IdCategoria">
+
+        <div style="margin-bottom:15px;">
+
+            <label>Nombre</label>
+
+            <input type="text"
+                   name="Nombre"
+                   value="@Model.Nombre"
+                   required
+                   style="width:100%;
+            padding:10px;
+            margin-top:5px;
+            border:1px solid #ccc;
+            border-radius:5px;" />
+
+        </div>
+
+        <div style="margin-bottom:15px;">
+
+            <label>Descripción</label>
+
+            <textarea name="Descripcion"
+                      rows="4"
+                      style="width:100%;
+            padding:10px;
+            margin-top:5px;
+            border:1px solid #ccc;
+            border-radius:5px;">@Model.Descripcion</textarea>
+
+        </div>
+
+        <div style="margin-bottom:20px;">
+
+            <label>Activo</label>
+
+            <select name="Activo"
+                    style="width:100%;
+                padding:10px;
+                margin-top:5px;
+                border:1px solid #ccc;
+                border-radius:5px;">
+
+                @if (Model.Activo)
+                {
+                    <option value="true" selected>Sí</option>
+                    <option value="false">No</option>
+                }
+                else
+                {
+                    <option value="true">Sí</option>
+                    <option value="false" selected>No</option>
+                }
+
+            </select>
+
+        </div>
+
+        <button type="submit"
+                style="background:#198754;
+            color:white;
+            border:none;
+            padding:10px 20px;
+            border-radius:5px;
+            cursor:pointer;">
+            💾 Guardar cambios
+        </button>
+
+        <a href="/CategoriasWeb"
+           style="background:#6c757d;
+            color:white;
+            padding:10px 20px;
+            text-decoration:none;
+            border-radius:5px;
+            margin-left:5px;">
+            ↩ Cancelar
+        </a>
+
+    </form>
+
+</div>

@@ -1,0 +1,129 @@
+﻿@model BikeStore.API.Models.Venta
+
+@{
+    ViewData["Title"] = "Nueva Venta";
+}
+
+<div style="max-width:700px; margin:40px auto; font-family:Arial;">
+
+    <h1>➕ Nueva Venta</h1>
+
+    @if (TempData["Error"] != null)
+    {
+        <div style="background:#f8d7da;
+            color:#842029;
+            padding:12px;
+            margin-bottom:15px;
+            border-radius:5px;">
+            @TempData["Error"]
+        </div>
+    }
+
+    <form method="post"
+          action="/VentasWeb/Crear">
+
+        <div style="margin-bottom:15px;">
+
+            <label>Cliente</label>
+
+            <select name="IdCliente"
+                    required
+                    style="width:100%;
+                padding:10px;
+                margin-top:5px;
+                border:1px solid #ccc;
+                border-radius:5px;">
+
+                <option value="">-- Seleccione un cliente --</option>
+
+                @if (ViewBag.Clientes != null)
+                {
+                    foreach (var cliente in ViewBag.Clientes)
+                    {
+                        <option value="@cliente.IdCliente">
+                            @cliente.IdCliente - @cliente.Nombres @cliente.Apellidos
+                        </option>
+                    }
+                }
+
+            </select>
+
+        </div>
+
+        <div style="margin-bottom:15px;">
+
+            <label>Subtotal</label>
+
+            <input type="number"
+                   name="Subtotal"
+                   value="@Model?.Subtotal"
+                   required
+                   min="0"
+                   step="0.01"
+                   style="width:100%;
+            padding:10px;
+            margin-top:5px;
+            border:1px solid #ccc;
+            border-radius:5px;" />
+
+        </div>
+
+        <div style="margin-bottom:15px;">
+
+            <label>IVA</label>
+
+            <input type="number"
+                   name="IVA"
+                   value="@Model?.IVA"
+                   required
+                   min="0"
+                   step="0.01"
+                   style="width:100%;
+            padding:10px;
+            margin-top:5px;
+            border:1px solid #ccc;
+            border-radius:5px;" />
+
+        </div>
+
+        <div style="margin-bottom:20px;">
+
+            <label>Total</label>
+
+            <input type="number"
+                   name="Total"
+                   value="@Model?.Total"
+                   required
+                   min="0"
+                   step="0.01"
+                   style="width:100%;
+            padding:10px;
+            margin-top:5px;
+            border:1px solid #ccc;
+            border-radius:5px;" />
+
+        </div>
+
+        <button type="submit"
+                style="background:#198754;
+            color:white;
+            border:none;
+            padding:10px 20px;
+            border-radius:5px;
+            cursor:pointer;">
+            💾 Guardar venta
+        </button>
+
+        <a href="/VentasWeb"
+           style="background:#6c757d;
+            color:white;
+            padding:10px 20px;
+            text-decoration:none;
+            border-radius:5px;
+            margin-left:5px;">
+            ↩ Cancelar
+        </a>
+
+    </form>
+
+</div>

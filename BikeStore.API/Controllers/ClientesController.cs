@@ -161,6 +161,157 @@ namespace BikeStore.API.Controllers
             return Ok(cliente);
         }
 
+        // GET: api/Clientes/buscar/cedula/{cedula}
+        [HttpGet("buscar/cedula/{cedula}")]
+        public async Task<ActionResult<Cliente>> BuscarPorCedula(string cedula)
+        {
+            const string consulta = """
+        SELECT
+            IdCliente,
+            Cedula,
+            Nombres,
+            Apellidos,
+            Telefono,
+            Correo
+        FROM Clientes
+        WHERE Cedula = @Cedula;
+        """;
+
+            await using var conexion = new SqlConnection(_cadenaConexion);
+            await using var comando = new SqlCommand(consulta, conexion);
+
+            comando.Parameters.Add(
+                "@Cedula",
+                System.Data.SqlDbType.VarChar,
+                10
+            ).Value = cedula.Trim();
+
+            await conexion.OpenAsync();
+
+            await using var lector = await comando.ExecuteReaderAsync();
+
+            if (!await lector.ReadAsync())
+            {
+                return NotFound(new
+                {
+                    mensaje = "No se encontró ningún cliente con esa cédula.",
+                    cedula = cedula
+                });
+            }
+
+            var cliente = new Cliente
+            {
+                IdCliente = lector.GetInt32(
+                    lector.GetOrdinal("IdCliente")
+                ),
+
+                Cedula = lector.GetString(
+                    lector.GetOrdinal("Cedula")
+                ),
+
+                Nombres = lector.GetString(
+                    lector.GetOrdinal("Nombres")
+                ),
+
+                Apellidos = lector.GetString(
+                    lector.GetOrdinal("Apellidos")
+                ),
+
+                Telefono = lector.IsDBNull(
+                    lector.GetOrdinal("Telefono")
+                )
+                ? null
+                : lector.GetString(
+                    lector.GetOrdinal("Telefono")
+                ),
+
+                Correo = lector.IsDBNull(
+                    lector.GetOrdinal("Correo")
+                )
+                ? null
+                : lector.GetString(
+                    lector.GetOrdinal("Correo")
+                )
+            };
+
+            return Ok(cliente);
+        }
+
+        // GET: api/Clientes/buscar/apellido/{apellido}
+        [HttpGet("buscar/apellido/{apellido}")]
+        public async Task<ActionResult<List<Cliente>>> BuscarPorApellido(string apellido)
+        {
+            var clientes = new List<Cliente>();
+
+            const string consulta = """
+        SELECT
+            IdCliente,
+            Cedula,
+            Nombres,
+            Apellidos,
+            Telefono,
+            Correo
+        FROM Clientes
+        WHERE Apellidos LIKE @Apellidos
+        ORDER BY Apellidos, Nombres;
+        """;
+
+            await using var conexion = new SqlConnection(_cadenaConexion);
+            await using var comando = new SqlCommand(consulta, conexion);
+
+            comando.Parameters.Add(
+                "@Apellidos",
+                System.Data.SqlDbType.VarChar,
+                100
+            ).Value = "%" + apellido.Trim() + "%";
+
+            await conexion.OpenAsync();
+
+            await using var lector = await comando.ExecuteReaderAsync();
+
+            while (await lector.ReadAsync())
+            {
+                var cliente = new Cliente
+                {
+                    IdCliente = lector.GetInt32(
+                        lector.GetOrdinal("IdCliente")
+                    ),
+
+                    Cedula = lector.GetString(
+                        lector.GetOrdinal("Cedula")
+                    ),
+
+                    Nombres = lector.GetString(
+                        lector.GetOrdinal("Nombres")
+                    ),
+
+                    Apellidos = lector.GetString(
+                        lector.GetOrdinal("Apellidos")
+                    ),
+
+                    Telefono = lector.IsDBNull(
+                        lector.GetOrdinal("Telefono")
+                    )
+                    ? null
+                    : lector.GetString(
+                        lector.GetOrdinal("Telefono")
+                    ),
+
+                    Correo = lector.IsDBNull(
+                        lector.GetOrdinal("Correo")
+                    )
+                    ? null
+                    : lector.GetString(
+                        lector.GetOrdinal("Correo")
+                    )
+                };
+
+                clientes.Add(cliente);
+            }
+
+            return Ok(clientes);
+        }
+
         // POST: api/Clientes
         [HttpPost]
         public async Task<ActionResult> Crear([FromBody] Cliente nuevoCliente)

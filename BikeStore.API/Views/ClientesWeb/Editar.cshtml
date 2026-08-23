@@ -1,0 +1,115 @@
+﻿@model BikeStore.API.Models.Cliente
+
+@{
+    ViewData["Title"] = "Editar Cliente";
+}
+
+<div style="max-width:700px; margin:40px auto; font-family:Arial;">
+
+    <h1>✏️ Editar Cliente</h1>
+
+    <form method="post"
+          action="/ClientesWeb/Editar/@Model.IdCliente">
+
+        <div style="margin-bottom:15px;">
+
+            <label>Cédula</label>
+
+            <input type="text"
+                   name="Cedula"
+                   value="@Model.Cedula"
+                   required
+                   maxlength="10"
+                   style="width:100%;
+            padding:10px;
+            margin-top:5px;
+            border:1px solid #ccc;
+            border-radius:5px;" />
+
+        </div>
+
+        <div style="margin-bottom:15px;">
+
+            <label>Nombres</label>
+
+            <input type="text"
+                   name="Nombres"
+                   value="@Model.Nombres"
+                   required
+                   style="width:100%;
+            padding:10px;
+            margin-top:5px;
+            border:1px solid #ccc;
+            border-radius:5px;" />
+
+        </div>
+
+        <div style="margin-bottom:15px;">
+
+            <label>Apellidos</label>
+
+            <input type="text"
+                   name="Apellidos"
+                   value="@Model.Apellidos"
+                   required
+                   style="width:100%;
+            padding:10px;
+            margin-top:5px;
+            border:1px solid #ccc;
+            border-radius:5px;" />
+
+        </div>
+
+        <div style="margin-bottom:15px;">
+
+            <label>Teléfono</label>
+
+            <input type="text"
+                   name="Telefono"
+                   value="@Model.Telefono"
+                   style="width:100%;
+            padding:10px;
+            margin-top:5px;
+            border:1px solid #ccc;
+            border-radius:5px;" />
+
+        </div>
+
+        <div style="margin-bottom:20px;">
+
+            <label>Correo</label>
+
+            <input type="email"
+                   name="Correo"
+                   value="@Model.Correo"
+                   style="width:100%;
+            padding:10px;
+            margin-top:5px;
+            border:1px solid #ccc;
+            border-radius:5px;" />
+
+        </div>
+
+        <button type="submit"
+                style="background:#198754;
+            color:white;
+            border:none;
+            padding:10px 20px;
+            border-radius:5px;
+            cursor:pointer;">
+            💾 Guardar cambios
+        </button>
+
+        <a href="/ClientesWeb"
+           style="background:#6c757d;
+            color:white;
+            padding:10px 20px;
+            text-decoration:none;
+            border-radius:5px;
+            margin-left:5px;">
+            ↩ Cancelar
+        </a>
+
+    </form>
+
+</div>

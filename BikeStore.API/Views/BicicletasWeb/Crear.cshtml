@@ -1,0 +1,90 @@
+﻿@model BikeStore.API.Models.BicicletaViewModel
+
+@{
+    ViewData["Title"] = "Registrar Bicicleta";
+}
+
+<div style="max-width:600px; margin:40px auto; font-family:Arial;">
+
+    <h1>🚲 Registrar bicicleta</h1>
+
+    @if (ViewBag.Error != null)
+    {
+        <div style="background:#f8d7da;
+            color:#842029;
+            padding:12px;
+            margin-bottom:15px;
+            border-radius:5px;">
+            @ViewBag.Error
+        </div>
+    }
+
+    <form method="post">
+
+        <div style="margin-bottom:15px;">
+            <label>Id de categoría</label>
+            <input type="number"
+                   name="IdCategoria"
+                   required
+                   style="width:100%; padding:8px;" />
+        </div>
+
+        <div style="margin-bottom:15px;">
+            <label>Marca</label>
+            <input type="text"
+                   name="Marca"
+                   required
+                   style="width:100%; padding:8px;" />
+        </div>
+
+        <div style="margin-bottom:15px;">
+            <label>Modelo</label>
+            <input type="text"
+                   name="Modelo"
+                   required
+                   style="width:100%; padding:8px;" />
+        </div>
+
+        <div style="margin-bottom:15px;">
+            <label>Precio</label>
+            <input type="number"
+                   name="Precio"
+                   step="0.01"
+                   min="0.01"
+                   required
+                   style="width:100%; padding:8px;" />
+        </div>
+
+        <div style="margin-bottom:15px;">
+            <label>Stock</label>
+            <input type="number"
+                   name="Stock"
+                   min="0"
+                   required
+                   style="width:100%; padding:8px;" />
+        </div>
+
+        <div style="margin-bottom:15px;">
+            <label>Estado</label>
+            <input type="text"
+                   name="Estado"
+                   required
+                   style="width:100%; padding:8px;" />
+        </div>
+
+        <button type="submit"
+                style="background:#198754;
+            color:white;
+            border:none;
+            padding:10px 20px;
+            border-radius:5px;">
+            💾 Registrar bicicleta
+        </button>
+
+    </form>
+
+    <br />
+
+    <a href="/BicicletasWeb">⬅ Volver a bicicletas</a>
+
+</div>

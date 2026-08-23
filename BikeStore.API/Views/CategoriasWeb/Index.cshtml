@@ -1,0 +1,122 @@
+﻿@model List<BikeStore.API.Models.Categoria>
+
+@{
+    ViewData["Title"] = "Categorías";
+}
+
+<div style="max-width:1000px; margin:40px auto; font-family:Arial;">
+
+    <h1>📂 Categorías</h1>
+
+    <a href="/CategoriasWeb/Crear"
+       style="display:inline-block;
+        background:#198754;
+        color:white;
+        padding:10px 18px;
+        text-decoration:none;
+        border-radius:5px;
+        margin:15px 0;">
+        ➕ Nueva categoría
+    </a>
+
+    <p>Listado de categorías disponibles en BikeStore.</p>
+
+    <table style="width:100%;
+        border-collapse:collapse;
+        margin-top:20px;">
+
+        <thead>
+
+            <tr style="background-color:#198754; color:white;">
+
+                <th style="padding:12px;">
+                    ID
+                </th>
+
+                <th style="padding:12px;">
+                    Nombre
+                </th>
+
+                <th style="padding:12px;">
+                    Descripción
+                </th>
+
+                <th style="padding:12px;">
+                    Activo
+                </th>
+
+                <th style="padding:12px;">
+                    Acciones
+                </th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            @foreach (var categoria in Model)
+            {
+                <tr>
+
+                    <td style="padding:10px;
+                        text-align:center;">
+                        @categoria.IdCategoria
+                    </td>
+
+                    <td style="padding:10px;">
+                        @categoria.Nombre
+                    </td>
+
+                    <td style="padding:10px;">
+                        @categoria.Descripcion
+                    </td>
+
+                    <td style="padding:10px;
+                        text-align:center;">
+                        @(categoria.Activo ? "Sí" : "No")
+                    </td>
+
+                    <td style="padding:10px; text-align:center;">
+
+                        <a href="/CategoriasWeb/Editar/@categoria.IdCategoria"
+                           style="background:#ffc107;
+                            color:black;
+                            padding:6px 12px;
+                            text-decoration:none;
+                            border-radius:5px;">
+                            ✏️ Editar
+                        </a>
+
+                        <form method="post"
+                              action="/CategoriasWeb/Eliminar/@categoria.IdCategoria"
+                              style="display:inline;"
+                              onsubmit="return confirm('¿Está seguro de eliminar esta categoría?');">
+
+                            <button type="submit"
+                                    style="background:#dc3545;
+                                color:white;
+                                border:none;
+                                padding:6px 12px;
+                                border-radius:5px;
+                                margin-left:5px;
+                                cursor:pointer;">
+                                🗑️ Eliminar
+                            </button>
+
+                        </form>
+
+                    </td>
+
+                </tr>
+            }
+
+        </tbody>
+
+    </table>
+
+    <br />
+
+    <a href="/Home/Index">⬅ Volver al inicio</a>
+
+</div>

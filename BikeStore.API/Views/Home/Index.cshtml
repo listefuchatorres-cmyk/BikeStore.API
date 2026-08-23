@@ -1,0 +1,99 @@
+﻿@{
+    ViewData["Title"] = "BikeStore";
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>BikeStore</title>
+
+    <style>
+            body {
+                margin: 0;
+                font-family: Arial, sans-serif;
+                background-color: #f4f6f8;
+            }
+
+            .contenedor {
+                max-width: 1000px;
+                margin: 80px auto;
+                text-align: center;
+            }
+
+            h1 {
+                color: #1f2937;
+                font-size: 42px;
+            }
+
+            p {
+                color: #555;
+                font-size: 18px;
+            }
+
+            .menu {
+                display: flex;
+                justify-content: center;
+                gap: 20px;
+                flex-wrap: wrap;
+                margin-top: 40px;
+            }
+
+            .boton {
+                display: block;
+                padding: 20px 35px;
+                background-color: #198754;
+                color: white;
+                text-decoration: none;
+                border-radius: 10px;
+                min-width: 150px;
+            }
+
+            .boton:hover {
+                background-color: #146c43;
+            }
+    </style>
+</head>
+
+<body>
+
+    <div class="contenedor">
+
+        <h1>🚲 BikeStore</h1>
+
+        <p>Sistema de gestión de la tienda de bicicletas</p>
+
+        <div class="menu">
+
+            <a href="/Home/Index" class="boton">
+                Inicio
+            </a>
+
+            <a href="/BicicletasWeb" class="boton">
+                Bicicletas
+            </a>
+
+            <a href="/CategoriasWeb" class="boton">
+                Categorías
+            </a>
+
+            <a href="/ClientesWeb" class="boton">
+                Clientes
+            </a>
+
+            <a href="/VentasWeb" class="boton">
+                Ventas
+            </a>
+
+            <a href="/DetalleVentasWeb" class="boton">
+                Detalle de Ventas
+            </a>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

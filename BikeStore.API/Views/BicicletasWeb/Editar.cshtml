@@ -1,0 +1,87 @@
+﻿@model BikeStore.API.Models.BicicletaViewModel
+
+@{
+    ViewData["Title"] = "Editar Bicicleta";
+}
+
+<div style="max-width:600px; margin:40px auto; font-family:Arial;">
+
+    <h1>✏️ Editar bicicleta</h1>
+
+    <form method="post">
+
+        <input type="hidden" name="IdBicicleta" value="@Model.IdBicicleta" />
+
+        <div style="margin-bottom:15px;">
+            <label>Id de categoría</label>
+            <input type="number"
+                   name="IdCategoria"
+                   value="@Model.IdCategoria"
+                   required
+                   style="width:100%; padding:8px;" />
+        </div>
+
+        <div style="margin-bottom:15px;">
+            <label>Marca</label>
+            <input type="text"
+                   name="Marca"
+                   value="@Model.Marca"
+                   required
+                   style="width:100%; padding:8px;" />
+        </div>
+
+        <div style="margin-bottom:15px;">
+            <label>Modelo</label>
+            <input type="text"
+                   name="Modelo"
+                   value="@Model.Modelo"
+                   required
+                   style="width:100%; padding:8px;" />
+        </div>
+
+        <div style="margin-bottom:15px;">
+            <label>Precio</label>
+            <input type="number"
+                   name="Precio"
+                   value="@Model.Precio"
+                   step="0.01"
+                   min="0.01"
+                   required
+                   style="width:100%; padding:8px;" />
+        </div>
+
+        <div style="margin-bottom:15px;">
+            <label>Stock</label>
+            <input type="number"
+                   name="Stock"
+                   value="@Model.Stock"
+                   min="0"
+                   required
+                   style="width:100%; padding:8px;" />
+        </div>
+
+        <div style="margin-bottom:15px;">
+            <label>Estado</label>
+            <input type="text"
+                   name="Estado"
+                   value="@Model.Estado"
+                   required
+                   style="width:100%; padding:8px;" />
+        </div>
+
+        <button type="submit"
+                style="background:#198754;
+            color:white;
+            border:none;
+            padding:10px 20px;
+            border-radius:5px;">
+            💾 Guardar cambios
+        </button>
+
+    </form>
+
+    <br />
+
+    <a href="/BicicletasWeb">⬅ Volver a bicicletas</a>
+
+</div>

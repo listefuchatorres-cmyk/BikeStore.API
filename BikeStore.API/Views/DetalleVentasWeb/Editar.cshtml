@@ -1,0 +1,189 @@
+﻿@model BikeStore.API.Models.DetalleVenta
+
+@{
+    ViewData["Title"] = "Editar Detalle de Venta";
+}
+
+<div style="max-width:700px; margin:40px auto; font-family:Arial;">
+
+    <h1>✏️ Editar Detalle de Venta</h1>
+
+    @if (TempData["Error"] != null)
+    {
+        <div style="background:#f8d7da;
+            color:#842029;
+            padding:12px;
+            margin-bottom:15px;
+            border-radius:5px;">
+            @TempData["Error"]
+        </div>
+    }
+
+    <form method="post"
+          action="/DetalleVentasWeb/Editar/@Model.IdDetalle">
+
+        <div style="margin-bottom:15px;">
+
+            <label>ID de Detalle</label>
+
+            <input type="text"
+                   value="@Model.IdDetalle"
+                   readonly
+                   style="width:100%;
+            padding:10px;
+            margin-top:5px;
+            background:#e9ecef;
+            border:1px solid #ccc;
+            border-radius:5px;" />
+
+        </div>
+
+        <div style="margin-bottom:15px;">
+
+            <label>Venta</label>
+
+            <select name="IdVenta"
+                    required
+                    style="width:100%;
+                padding:10px;
+                margin-top:5px;
+                border:1px solid #ccc;
+                border-radius:5px;">
+
+                <option value="">-- Seleccione una venta --</option>
+
+                @if (ViewBag.Ventas != null)
+                {
+                    foreach (var venta in ViewBag.Ventas)
+                    {
+                        if (venta.IdVenta == Model.IdVenta)
+                        {
+                            <option value="@venta.IdVenta" selected>
+                                Venta #@venta.IdVenta - Cliente #@venta.IdCliente - Total: $@venta.Total.ToString("0.00")
+                            </option>
+                        }
+                        else
+                        {
+                            <option value="@venta.IdVenta">
+                                Venta #@venta.IdVenta - Cliente #@venta.IdCliente - Total: $@venta.Total.ToString("0.00")
+                            </option>
+                        }
+                    }
+                }
+
+            </select>
+
+        </div>
+
+        <div style="margin-bottom:15px;">
+
+            <label>Bicicleta</label>
+
+            <select name="IdBicicleta"
+                    required
+                    style="width:100%;
+                padding:10px;
+                margin-top:5px;
+                border:1px solid #ccc;
+                border-radius:5px;">
+
+                <option value="">-- Seleccione una bicicleta --</option>
+
+                @if (ViewBag.Bicicletas != null)
+                {
+                    foreach (var bicicleta in ViewBag.Bicicletas)
+                    {
+                        if (bicicleta.IdBicicleta == Model.IdBicicleta)
+                        {
+                            <option value="@bicicleta.IdBicicleta" selected>
+                                @bicicleta.IdBicicleta - @bicicleta.Marca @bicicleta.Modelo - $@bicicleta.Precio.ToString("0.00")
+                            </option>
+                        }
+                        else
+                        {
+                            <option value="@bicicleta.IdBicicleta">
+                                @bicicleta.IdBicicleta - @bicicleta.Marca @bicicleta.Modelo - $@bicicleta.Precio.ToString("0.00")
+                            </option>
+                        }
+                    }
+                }
+
+            </select>
+
+        </div>
+
+        <div style="margin-bottom:15px;">
+
+            <label>Cantidad</label>
+
+            <input type="number"
+                   name="Cantidad"
+                   value="@Model.Cantidad"
+                   required
+                   min="1"
+                   style="width:100%;
+            padding:10px;
+            margin-top:5px;
+            border:1px solid #ccc;
+            border-radius:5px;" />
+
+        </div>
+
+        <div style="margin-bottom:20px;">
+
+            <label>Precio Unitario</label>
+
+            <input type="number"
+                   name="PrecioUnitario"
+                   value="@Model.PrecioUnitario"
+                   required
+                   min="0"
+                   step="0.01"
+                   style="width:100%;
+            padding:10px;
+            margin-top:5px;
+            border:1px solid #ccc;
+            border-radius:5px;" />
+
+        </div>
+
+        <div style="background:#f4f6f8;
+            padding:12px;
+            margin-bottom:20px;
+            border-radius:5px;
+            color:#555;">
+
+            💡 <strong>Subtotal actual:</strong>
+            $@Model.SubtotalDetalle.ToString("0.00")
+
+            <br />
+
+            <small>
+                El subtotal se recalcula automáticamente al guardar.
+            </small>
+
+        </div>
+
+        <button type="submit"
+                style="background:#198754;
+            color:white;
+            border:none;
+            padding:10px 20px;
+            border-radius:5px;
+            cursor:pointer;">
+            💾 Guardar cambios
+        </button>
+
+        <a href="/DetalleVentasWeb"
+           style="background:#6c757d;
+            color:white;
+            padding:10px 20px;
+            text-decoration:none;
+            border-radius:5px;
+            margin-left:5px;">
+            ↩ Cancelar
+        </a>
+
+    </form>
+
+</div>
